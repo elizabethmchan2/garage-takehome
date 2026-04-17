@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const result = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
-      subject: `${title}`,
+      subject: `Invoice for ${title}`,
       text: `Please find attached your invoice for ${title}.`,
       attachments: [
         {

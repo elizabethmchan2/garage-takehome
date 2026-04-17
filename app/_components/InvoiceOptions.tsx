@@ -81,7 +81,7 @@ const InvoiceOptions = ({
   if (!listingData) return null;
 
   return (
-    <div className="mt-6">
+    <div>
       <button
         type="button"
         onClick={onGoBack}

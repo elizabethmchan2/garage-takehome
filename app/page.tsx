@@ -13,8 +13,8 @@ export default function Home() {
           <h1 className="text-2xl sm:text-3xl font-medium text-black">
             Generate Invoice From Listing
           </h1>
+          <GenerateInvoiceForm />
         </div>
-        <GenerateInvoiceForm />
       </main>
     </div>
   );
