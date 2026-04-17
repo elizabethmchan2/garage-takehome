@@ -2,7 +2,7 @@ This is the take home assessment for Garage.
 
 Visit https://garage-takehome.onrender.com to test it.
 
-## Getting Started
+## Running locally
 
 First, run the development server:
 
