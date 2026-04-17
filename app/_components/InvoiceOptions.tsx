@@ -7,6 +7,7 @@ import PrimaryButton from "@/app/_components/ui/PrimaryButton";
 import TextInput from "@/app/_components/ui/TextInput";
 import { useForm, FormProvider } from "react-hook-form";
 import { pdf } from "@react-pdf/renderer";
+import BackButton from "@/app/_components/ui/BackButton";
 
 type EmailForm = {
   email: string | null;
@@ -82,14 +83,7 @@ const InvoiceOptions = ({
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={onGoBack}
-        className="touch-manipulation text-black cursor-pointer h-10 font-light mb-2"
-      >
-        {" "}
-        {`<-`} Go back
-      </button>
+      <BackButton onClick={onGoBack} />
       <p>You requested an invoice for the {listingData.listingTitle}</p>
       <div className="flex flex-col gap-2 mt-2">
         <PDFDownloadLink

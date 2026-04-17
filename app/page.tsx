@@ -1,6 +1,6 @@
-import GenerateInvoiceForm from "@/app/_components/GenerateInvoiceForm";
 import Image from "next/image";
-import GarageLogo from "@/app/garage-logo.svg";
+import GarageLogo from "@/app/_components/svgs/garage-logo.svg";
+import { GetPDFInvoiceButton } from "@/app/_components/GetPDFInvoiceButton";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
           <h1 className="text-2xl sm:text-3xl font-medium text-black">
             Generate Invoice From Listing
           </h1>
-          <GenerateInvoiceForm />
+          <GetPDFInvoiceButton />
         </div>
       </main>
     </div>

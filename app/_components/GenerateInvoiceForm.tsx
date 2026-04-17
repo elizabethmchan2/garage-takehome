@@ -6,12 +6,13 @@ import { Listing } from "@/app/_types/listing";
 import InvoiceOptions from "@/app/_components/InvoiceOptions";
 import PrimaryButton from "@/app/_components/ui/PrimaryButton";
 import TextInput from "@/app/_components/ui/TextInput";
+import BackButton from "@/app/_components/ui/BackButton";
 
 type FormValues = {
   listing: string;
 };
 
-const GenerateInvoiceForm = () => {
+const GenerateInvoiceForm = ({ onGoBack }: { onGoBack: () => void }) => {
   const methods = useForm<FormValues>();
   const {
     handleSubmit,
@@ -62,6 +63,7 @@ const GenerateInvoiceForm = () => {
 
   return (
     <div>
+      <BackButton onClick={onGoBack} />
       <p className="text-black">
         Paste a link to the listing and we will generate an invoice that you can
         download or email.
