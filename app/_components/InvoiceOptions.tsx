@@ -13,10 +13,10 @@ type EmailForm = {
 };
 
 const InvoiceOptions = ({
-  data,
+  listingData,
   onGoBack,
 }: {
-  data: Listing;
+  listingData: Listing;
   onGoBack: () => void;
 }) => {
   const [hasEmailSent, setHasEmailSent] = useState<boolean>();
@@ -29,8 +29,11 @@ const InvoiceOptions = ({
   } = methods;
 
   const onSubmit = async (formValues: EmailForm) => {
+    setHasEmailSent(false);
+
+    let res;
     try {
-      const blob = await pdf(<InvoicePDF data={data} />).toBlob();
+      const blob = await pdf(<InvoicePDF listingData={listingData} />).toBlob();
 
       const base64 = await new Promise<string>((resolve) => {
         const reader = new FileReader();
@@ -41,42 +44,57 @@ const InvoiceOptions = ({
         reader.readAsDataURL(blob);
       });
 
-      await fetch("/api/send-invoice", {
+      res = await fetch("/api/send-invoice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: formValues.email,
           pdf: base64,
-          title: `Invoice for ${data.listingTitle}`,
+          title: listingData.listingTitle,
         }),
       });
 
+      if (!res.ok) {
+        const text = await res.text();
+
+        let errorMessage;
+        try {
+          const data = JSON.parse(text);
+          errorMessage = data?.error || "Error sending";
+        } catch {
+          errorMessage = "Unknown error";
+        }
+        throw new Error(errorMessage);
+      }
+
       setHasEmailSent(true);
-    } catch {
-      setError("email", {
-        type: "manual",
-        message: "Error sending email. Please try again",
-      });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError("email", {
+          type: "manual",
+          message: err.message,
+        });
+      }
     }
   };
 
-  if (!data) return null;
+  if (!listingData) return null;
 
   return (
     <div className="mt-6">
       <button
         type="button"
         onClick={onGoBack}
-        className="touch-manipulation text-black cursor-pointer h-10 font-medium mb-2"
+        className="touch-manipulation text-black cursor-pointer h-10 font-light mb-2"
       >
         {" "}
         {`<-`} Go back
       </button>
-      <p>You requested an invoice for the {data.listingTitle}</p>
+      <p>You requested an invoice for the {listingData.listingTitle}</p>
       <div className="flex flex-col gap-2 mt-2">
         <PDFDownloadLink
-          document={<InvoicePDF data={data} />}
-          fileName={`${data.listingTitle}-invoice.pdf`}
+          document={<InvoicePDF listingData={listingData} />}
+          fileName={`${listingData.listingTitle}-invoice.pdf`}
         >
           {({ loading }) => (
             <PrimaryButton type="button" disabled={loading}>

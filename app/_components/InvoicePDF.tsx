@@ -105,9 +105,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoicePDF = ({ data }: { data: Listing }) => {
-  const formattedPrice = data.sellingPrice
-    ? `$${data.sellingPrice.toLocaleString()}`
+const InvoicePDF = ({ listingData }: { listingData: Listing }) => {
+  const formattedPrice = listingData.sellingPrice
+    ? `$${listingData.sellingPrice.toLocaleString()}`
     : "Contact for price";
 
   const date = new Date().toLocaleDateString("en-US", {
@@ -129,14 +129,14 @@ const InvoicePDF = ({ data }: { data: Listing }) => {
         </View>
 
         {/* title */}
-        <Text style={styles.title}>{data.listingTitle}</Text>
+        <Text style={styles.title}>{listingData.listingTitle}</Text>
         <Text style={styles.subtitle}>
-          {data.category?.name} · {data.address?.state}
+          {listingData.category?.name} · {listingData.address?.state}
         </Text>
 
         {/* main image */}
-        {data.listingImages?.[0]?.url && (
-          <Image style={styles.image} src={data.listingImages[0].url} />
+        {listingData.listingImages?.[0]?.url && (
+          <Image style={styles.image} src={listingData.listingImages[0].url} />
         )}
 
         {/* price */}
@@ -147,12 +147,14 @@ const InvoicePDF = ({ data }: { data: Listing }) => {
 
         {/* description */}
         <Text style={styles.sectionTitle}>Description</Text>
-        <Text style={styles.description}>{data.listingDescription}</Text>
+        <Text style={styles.description}>{listingData.listingDescription}</Text>
 
         {/* footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>shopgarage.com</Text>
-          <Text style={styles.footerText}>Listing ID: {data.secondaryId}</Text>
+          <Text style={styles.footerText}>
+            Listing ID: {listingData.secondaryId}
+          </Text>
         </View>
       </Page>
     </Document>

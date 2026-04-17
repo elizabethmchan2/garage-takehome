@@ -36,26 +36,25 @@ const GenerateInvoiceForm = () => {
       const res = await fetch(`/api/listing?listing_id=${UUID}`);
       const data = await res.json();
 
-      if (data.message) {
+      if (!res.ok) {
+        throw new Error(data.error);
+      }
+
+      setListingData(data);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
         setError("listing", {
           type: "manual",
-          message: "No listing found from URL",
+          message: err.message,
         });
-      } else {
-        setListingData(data);
       }
-    } catch {
-      setError("listing", {
-        type: "manual",
-        message: "Error fetching listing. Please try again",
-      });
     }
   };
 
   if (listingData) {
     return (
       <InvoiceOptions
-        data={listingData}
+        listingData={listingData}
         onGoBack={() => setListingData(null)}
       />
     );
