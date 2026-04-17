@@ -4,8 +4,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { getUUIDFromListing } from "@/app/_utils/getUUIDFromListing";
 import { Listing } from "@/app/_types/listing";
 import InvoiceOptions from "@/app/_components/InvoiceOptions";
-import PrimaryButton from "@/app/_components/common/PrimaryButton";
-import TextInput from "@/app/_components/common/TextInput";
+import PrimaryButton from "@/app/_components/ui/PrimaryButton";
+import TextInput from "@/app/_components/ui/TextInput";
 
 type FormValues = {
   listing: string;

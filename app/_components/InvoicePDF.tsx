@@ -121,6 +121,8 @@ const InvoicePDF = ({ listingData }: { listingData: Listing }) => {
       <Page size="A4" style={styles.page}>
         {/* header */}
         <View style={styles.header}>
+          {/* ideally we do not eslint ignore but eslint is confusing this Image tag from next with the library one */}
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image
             style={styles.logo}
             src="https://www.shopgarage.com/logos/garage/garage-logo.svg"
@@ -136,6 +138,7 @@ const InvoicePDF = ({ listingData }: { listingData: Listing }) => {
 
         {/* main image */}
         {listingData.listingImages?.[0]?.url && (
+          // eslint-disable-next-line jsx-a11y/alt-text
           <Image style={styles.image} src={listingData.listingImages[0].url} />
         )}
 

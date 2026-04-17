@@ -3,8 +3,8 @@ import { useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import InvoicePDF from "@/app/_components/InvoicePDF";
 import { Listing } from "@/app/_types/listing";
-import PrimaryButton from "@/app/_components/common/PrimaryButton";
-import TextInput from "@/app/_components/common/TextInput";
+import PrimaryButton from "@/app/_components/ui/PrimaryButton";
+import TextInput from "@/app/_components/ui/TextInput";
 import { useForm, FormProvider } from "react-hook-form";
 import { pdf } from "@react-pdf/renderer";
 
